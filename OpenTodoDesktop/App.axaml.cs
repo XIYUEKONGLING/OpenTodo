@@ -1,9 +1,12 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using OpenTodoDesktop.Localization;
 using OpenTodoDesktop.ViewModels;
 using OpenTodoDesktop.Views;
 
@@ -11,6 +14,8 @@ namespace OpenTodoDesktop;
 
 public partial class App : Application
 {
+    public static IServiceProvider? ServiceProvider { get; private set; }
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -18,6 +23,9 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        var services = new ServiceCollection();
+        ConfigureServices(services);
+        ServiceProvider = services.BuildServiceProvider();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -25,7 +33,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = GetService<MainWindowViewModel>(),
             };
         }
 
@@ -43,5 +51,23 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    private void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton<LocalizationService>();
+        
+        services.AddTransient<MainWindowViewModel>(); 
+        return;
+    }
+
+    public static T GetService<T>() where T : class
+    {
+        var result = ServiceProvider?.GetService<T>();
+        if (result == null)
+        {
+            throw new InvalidOperationException($"Service of type {typeof(T)} could not be found.");
+        }
+        return result;
     }
 }
