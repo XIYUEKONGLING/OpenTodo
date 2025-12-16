@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using OpenTodoDesktop.Models;
 
-namespace OpenTodoDesktop.Localization;
+namespace OpenTodoDesktop.Services;
 
 public class ConfigureService : ObservableObject
 {
