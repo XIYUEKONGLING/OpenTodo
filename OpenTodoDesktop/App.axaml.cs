@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenTodoDesktop.Localization;
 using OpenTodoDesktop.ViewModels;
 using OpenTodoDesktop.Views;
+using ThemeService = OpenTodoDesktop.Services.ThemeService;
 
 namespace OpenTodoDesktop;
 
@@ -56,6 +57,7 @@ public partial class App : Application
     private void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<LocalizationService>();
+        services.AddSingleton<ThemeService>();
         
         services.AddTransient<MainWindowViewModel>(); 
         return;
