@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTodoServer", "OpenTodoServer\OpenTodoServer.csproj", "{844E9CC9-9A38-41CB-9749-7BADE9E09568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTodo", "OpenTodo\OpenTodo.csproj", "{7E87926B-583B-4DE2-9D1E-6C4C5ABCA50D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{844E9CC9-9A38-41CB-9749-7BADE9E09568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{844E9CC9-9A38-41CB-9749-7BADE9E09568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{844E9CC9-9A38-41CB-9749-7BADE9E09568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{844E9CC9-9A38-41CB-9749-7BADE9E09568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E87926B-583B-4DE2-9D1E-6C4C5ABCA50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E87926B-583B-4DE2-9D1E-6C4C5ABCA50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E87926B-583B-4DE2-9D1E-6C4C5ABCA50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E87926B-583B-4DE2-9D1E-6C4C5ABCA50D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

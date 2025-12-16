@@ -1,0 +1,6 @@
+@OpenTodoServer_HostAddress = http://localhost:5296
+
+GET {{OpenTodoServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
