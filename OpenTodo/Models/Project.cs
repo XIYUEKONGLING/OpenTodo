@@ -6,7 +6,7 @@ public class Project
     public string Name { get; set; } = "New Project";
     public string? Description { get; set; } = null;
 
-    public List<TaskList> TaskLists =
+    public List<TaskList> TaskLists { get; set; } =
     [
         new()
         {
