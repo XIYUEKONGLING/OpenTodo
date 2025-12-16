@@ -1,6 +1,18 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace OpenTodoDesktop.Models;
 
-public class ApplicationConfigure
+public partial class ApplicationConfigure : ObservableObject
 {
-    
+    [ObservableProperty]
+    private string _language = "en-US";
+
+    [ObservableProperty]
+    private ApplicationTheme _theme = ApplicationTheme.System;
+
+    [ObservableProperty]
+    private WindowBackdropType _backdropType = WindowBackdropType.Blur;
+
+    [ObservableProperty]
+    private double _windowOpacity = 1.0;
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTodoDesktop.Localization;
+using OpenTodoDesktop.Services;
 using OpenTodoDesktop.ViewModels;
 using OpenTodoDesktop.Views;
 using ThemeService = OpenTodoDesktop.Services.ThemeService;
@@ -27,6 +28,10 @@ public partial class App : Application
         var services = new ServiceCollection();
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
+        
+        var configService = GetService<ConfigureService>();
+        configService.LoadAsync().GetAwaiter().GetResult();
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -56,9 +61,11 @@ public partial class App : Application
 
     private void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton(sp => new ConfigureService(null));
         services.AddSingleton<LocalizationService>();
         services.AddSingleton<ThemeService>();
         
+        // Windows
         services.AddTransient<MainWindowViewModel>(); 
         return;
     }
