@@ -30,7 +30,7 @@ public partial class App : Application
         ServiceProvider = services.BuildServiceProvider();
         
         var configService = GetService<ConfigureService>();
-        configService.LoadAsync().GetAwaiter().GetResult();
+        configService.Load();
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

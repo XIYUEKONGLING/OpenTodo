@@ -10,8 +10,7 @@ namespace OpenTodoDesktop.Services;
 public class ConfigureService : ObservableObject
 {
     public static readonly string ApplicationName = "OpenTodoDesktop";
-
-    // Backing fields for ObservableObject
+    
     private ApplicationConfigure _configure = new();
     private ApplicationData _data = new();
 
@@ -44,18 +43,58 @@ public class ConfigureService : ObservableObject
         ApplicationDataPath = Path.Combine(ApplicationDataDirectory, "Data.json");
     }
 
-    /// <summary>
-    /// Loads both Configuration and Data files asynchronously.
-    /// </summary>
+    public void Load()
+    {
+        LoadConfigure();
+        LoadData();
+    }
+
+    public void LoadConfigure()
+    {
+        if (!File.Exists(ApplicationConfigurePath)) return;
+
+        try
+        {
+            using var stream = File.OpenRead(ApplicationConfigurePath);
+            var result = JsonSerializer.Deserialize<ApplicationConfigure>(stream, _jsonOptions);
+            
+            if (result != null)
+            {
+                Configure = result;
+            }
+        }
+        catch (JsonException)
+        {
+            // Handle corrupted JSON
+        }
+    }
+
+    public void LoadData()
+    {
+        if (!File.Exists(ApplicationDataPath)) return;
+
+        try
+        {
+            using var stream = File.OpenRead(ApplicationDataPath);
+            var result = JsonSerializer.Deserialize<ApplicationData>(stream, _jsonOptions);
+
+            if (result != null)
+            {
+                Data = result;
+            }
+        }
+        catch (JsonException)
+        {
+            // Handle corrupted JSON
+        }
+    }
+
     public async Task LoadAsync()
     {
         await LoadConfigureAsync();
         await LoadDataAsync();
     }
 
-    /// <summary>
-    /// Saves both Configuration and Data files asynchronously.
-    /// </summary>
     public async Task SaveAsync()
     {
         await SaveConfigureAsync();
@@ -76,10 +115,7 @@ public class ConfigureService : ObservableObject
                 Configure = result;
             }
         }
-        catch (JsonException)
-        {
-            // Handle corrupted JSON
-        }
+        catch (JsonException) { }
     }
 
     public async Task LoadDataAsync()
@@ -96,10 +132,7 @@ public class ConfigureService : ObservableObject
                 Data = result;
             }
         }
-        catch (JsonException)
-        {
-            // Handle corrupted JSON
-        }
+        catch (JsonException) { }
     }
 
     public async Task SaveConfigureAsync()
